@@ -10,7 +10,6 @@ function eventListeners() {
     // Cuando el documento esta listo
     document.addEventListener('DOMContentLoaded', () => {
         tweets = JSON.parse(localStorage.getItem('tweets')) || [];
-        console.log(tweets);
         crearHTML();
     });
 }
@@ -80,7 +79,6 @@ function sincronizarStorage() {
 // Eliminar tweet
 function borrarTweet(id) {
     tweets = tweets.filter(tweet => tweet.id !== id)
-    console.log(tweets);
     crearHTML();
 }
 
