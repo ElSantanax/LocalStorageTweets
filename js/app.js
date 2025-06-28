@@ -1,5 +1,6 @@
 const formulario = document.querySelector('#formulario');
 const listaTweets = document.querySelector('#lista-tweets');
+let tweets = [];
 
 // Eventos
 eventListeners();
@@ -15,7 +16,15 @@ function agregarTweets(e) {
         mostrarError('Un mensaje no puede ir vacio');
         return;
     }
-    console.log('enviando');
+    // Añadiendo al arreglo de tweets
+    const tweetObj = {
+        id: Date.now(),
+        tweet
+    }
+
+    tweets = [...tweets, tweetObj];
+    crearHTML(); // Crear el HTML
+    formulario.resert() // Reiniciar formulario
 }
 
 function mostrarError(error) {
@@ -30,4 +39,23 @@ function mostrarError(error) {
     setTimeout(() => {
         mensajeError.remove();
     }, 3000);
+}
+
+function crearHTML() {
+    limpiarHTML();
+    if (tweets.length > 0) {
+        tweets.forEach(tweet => {
+            // Crear HTML
+            const li = document.createElement('li');
+            li.innerText = tweet.tweet.trim() // Añadir el texto
+            listaTweets.appendChild(li); // Insertar en el HTML
+        });
+    }
+}
+
+// Limpiar el HTML
+function limpiarHTML() {
+    while (listaTweets.firstChild) {
+        listaTweets.removeChild(listaTweets.firstChild)
+    }
 }
